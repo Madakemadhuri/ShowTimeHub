@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Ticket</title>
+  <style>
+    body{font-family:Arial;background:#111;color:#fff;padding:30px;text-align:center}
+    .ticket{display:inline-block;background:#222;padding:20px;border-radius:10px;box-shadow:0 0 12px #ff0000}
+    h2{color:#ff0000}
+    p{margin:6px}
+  </style>
+</head>
+<body>
+  <div class="ticket">
+    <h2>{{ ticket.movie_name }} - Ticket</h2>
+    <p>Booking ID: {{ ticket.id }}</p>
+    <p>Seats: {{ ticket.seats }}</p>
+    <p>Amount: ₹{{ ticket.total_amount }}</p>
+    <p>Status: {{ ticket.status }}</p>
+    <p><a href="/history" style="color:#ff8080">Back to history</a></p>
+  </div>
+</body>
+</html>

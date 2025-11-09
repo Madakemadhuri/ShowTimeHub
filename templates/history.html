@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>My Bookings</title>
+  <style>
+    body{font-family:Arial;background:#111;color:#fff;padding:20px}
+    h1{color:#ff0000;text-align:center}
+    table{width:90%;margin:14px auto;border-collapse:collapse}
+    th,td{padding:8px;border:1px solid #ff0000;text-align:center}
+    .btn{background:#ff0000;color:#fff;padding:6px 10px;border:none;border-radius:5px;cursor:pointer}
+    a{color:#ff8080}
+  </style>
+</head>
+<body>
+  <div style="max-width:900px;margin:0 auto">
+    <a href="/movies" style="color:#ff8080">&larr; Back to Movies</a>
+    <h1>My Bookings</h1>
+    <table>
+      <tr><th>ID</th><th>Movie</th><th>Seats</th><th>Amount</th><th>Status</th><th>Action</th></tr>
+      {% for b in bookings %}
+      <tr>
+        <td>{{ b.id }}</td>
+        <td>{{ b.movie_name }}</td>
+        <td>{{ b.seats }}</td>
+        <td>₹{{ b.total_amount }}</td>
+        <td>{{ b.status }}</td>
+        <td>
+          {% if b.status == 'Booked' %}
+            <a class="btn" href="/cancel/{{ b.id }}">Cancel</a>
+          {% else %}
+            -
+          {% endif %}
+          &nbsp; <a href="/ticket/{{ b.id }}" style="color:#ff8080">Ticket</a>
+        </td>
+      </tr>
+      {% endfor %}
+      {% if bookings|length == 0 %}
+      <tr><td colspan="6">No bookings yet</td></tr>
+      {% endif %}
+    </table>
+  </div>
+</body>
+</html>

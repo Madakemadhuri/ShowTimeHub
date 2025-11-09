@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Book Seats - {{ movie.name }}</title>
+  <style>
+    body{font-family:Arial;background:#111;color:#fff;margin:0;padding:20px;text-align:center}
+    h1{color:#ff0000}
+    .seat{display:inline-block;width:36px;height:36px;margin:6px;background:#ff0000;border-radius:6px;line-height:36px;color:#fff;cursor:pointer}
+    .seat.selected{background:#444}
+    .seat.booked{background:#555;cursor:not-allowed}
+    .center{max-width:720px;margin:0 auto}
+    .btn{background:#ff0000;color:#fff;padding:10px 16px;border-radius:6px;border:none;cursor:pointer}
+    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    a{color:#ff8080}
+  </style>
+</head>
+<body>
+  <div class="top">
+    <a href="/movies">&larr; Back to movies</a>
+    <div><strong style="color:#ff8080">{{ session.get('user_name') }}</strong></div>
+  </div>
+
+  <h1>Book: {{ movie.name }}</h1>
+  <p>Price per seat: ₹{{ movie.price }}</p>
+
+  <div class="center">
+    <div id="seatContainer">
+      {% for i in range(1,31) %}
+        {% set s = i|string %}
+        <div class="seat {% if s in booked %}booked{% endif %}" data-seat="{{ i }}">{{ i }}</div>
+      {% endfor %}
+    </div>
+
+    <p>Total seats: <span id="totalSeats">0</span> &nbsp; Total price: ₹<span id="totalPrice">0</span></p>
+
+    <form method="post" action="{{ url_for('booking', movie_id=movie.id) }}" id="bookForm">
+      <input type="hidden" name="seats" id="seatsInput">
+      <button class="btn" type="submit">Confirm Booking</button>
+    </form>
+  </div>
+
+<script>
+const seatsEls = document.querySelectorAll('.seat');
+const seatsInput = document.getElementById('seatsInput');
+const totalSeatsEl = document.getElementById('totalSeats');
+const totalPriceEl = document.getElementById('totalPrice');
+const price = {{ movie.price }};
+let selected = [];
+
+seatsEls.forEach(el=>{
+  el.addEventListener('click', ()=>{
+    if (el.classList.contains('booked')) return;
+    el.classList.toggle('selected');
+    const n = el.getAttribute('data-seat');
+    if (selected.includes(n)) selected = selected.filter(x=>x!==n); else selected.push(n);
+    seatsInput.value = selected.join(',');
+    totalSeatsEl.textContent = selected.length;
+    totalPriceEl.textContent = selected.length * price;
+  });
+});
+</script>
+</body>
+</html>

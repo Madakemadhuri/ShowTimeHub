@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Booking Confirmed</title>
+  <style>
+    body{font-family:Arial;background:#111;color:#fff;text-align:center;padding:40px}
+    .box{background:#222;padding:24px;border-radius:10px;box-shadow:0 0 12px #ff0000;display:inline-block}
+    a{color:#ff8080}
+    .btn{background:#ff0000;color:#fff;padding:8px 12px;border:none;border-radius:6px;cursor:pointer}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2 style="color:#ff0000">Booking confirmed ✅</h2>
+    <p>Booking ID: {{ booking.id }}</p>
+    <p>Movie: {{ booking.movie_name }}</p>
+    <p>Seats: {{ booking.seats }}</p>
+    <p>Amount: ₹{{ booking.total_amount }}</p>
+    <p><a class="btn" href="/history">Go to My Bookings</a> &nbsp; <a href="/movies" style="color:#ff8080">Back to Movies</a></p>
+  </div>
+</body>
+</html>
