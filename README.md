@@ -17,8 +17,8 @@
 ## Tech Stack
 
 - **Frontend:** HTML, CSS
-- **Backend:** Python (Flask or Django)
-- **Database:** SQL (SQLite/MySQL)
+- **Backend:** Python (Flask)
+- **Database:** SQL (MySQL)
 
 ---
 
